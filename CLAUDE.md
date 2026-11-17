@@ -22,9 +22,9 @@ CI (`.github/workflows/ci.yml`) runs `npm install`, `npm run lint` and `npm test
 
 ## Conventions
 
+- Return errors as JSON `{ error: "<message>" }` with the right status (400 for invalid input, 404 for not found), and use `return res.status(...)` so the handler stops there. Successful creates return 201.
 - Use CommonJS (`require` / `module.exports`), not ES modules. ESLint is set to `sourceType: "script"`.
 - Use double quotes and semicolons, matching the existing files.
-- Return errors as JSON `{ error: "<message>" }` with the right status (400 for invalid input, 404 for not found), and use `return res.status(...)` so the handler stops there. Successful creates return 201.
 - Route params arrive as strings. Convert IDs with `Number(req.params.id)` before calling the store, because store lookups use strict `===`.
 - Write tests with `node:test` + `node:assert` + `supertest` against the exported `app`, in `tests/*.test.js`. Don't add Jest or Mocha.
 - Unused `req`, `res`, `next` and `_` arguments are allowed by the lint config. Keep the standard Express handler signatures.
